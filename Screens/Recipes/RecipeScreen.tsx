@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { CategoryDetailScreen } from "./CategoryDetailScreen";
 import { ShowAllRecipies } from "../../components/Recipies/ShowAllRecipies";
+import { MealDetailScreen } from "./MealDetailScreen";
+import { ShowIngredients } from "../../components/Recipies/ShowIngredients";
 
 interface CategoriesProps {
   idCategory: string;
@@ -17,13 +19,6 @@ interface CategoriesProps {
   strCategoryDescription: string;
   strCategoryThumb: string;
 }
-
-interface MealProps {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-}
-
 
 
 export function RecipeScreen(){
@@ -40,6 +35,17 @@ const Stack = createNativeStackNavigator();
       <Stack.Screen
         name="Categorie"
         component={CategoryDetailScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="Meal"
+        component={MealDetailScreen}
+        options={{ headerShown: true }}
+      />
+
+<Stack.Screen
+        name="Ingredients"
+        component={ShowIngredients}
         options={{ headerShown: true }}
       />
     </Stack.Navigator>

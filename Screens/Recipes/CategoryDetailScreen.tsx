@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -9,11 +9,14 @@ import {
   TouchableOpacity, 
   Image
 } from "react-native";
+import { ShowAllMealsFromCategory } from "../../components/Recipies/ShowAllMealsFromCategory";
+
+
 
 export function CategoryDetailScreen(){
     const route: RouteProp<any> = useRoute();
     let imageUrl :string = route.params?.recipe.strCategoryThumb ;
-    console.log(imageUrl);
+    
     return (
       <View> 
         <ScrollView>
@@ -25,33 +28,15 @@ export function CategoryDetailScreen(){
               }}
               />
         <Text> {route.params?.recipe.strCategoryDescription}</Text>
+           {ShowAllMealsFromCategory(route.params?.recipe.strCategory)}
         </ScrollView>
+     
       </View>
     )
   }
   
   
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      backgroundColor: "#6804CD",
-      width: "100%",
-      height: 30,
-    },
-    text: {
-      color: "#ffffff",
-      fontWeight: "bold",
-    },
-    CategorieScrollView: {},
-    CategorieView: {
-      height: 25,
-      borderWidth: 1,
-      width: 85,
-      textAlign: "center",
-      borderColor: "black",
-    },
     image: { 
       height: 100, 
       resizeMode: 'contain',
