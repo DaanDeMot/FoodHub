@@ -8,12 +8,32 @@ import {
   TouchableOpacity, 
   Image
 } from "react-native";
+import { Header } from "../Header/Header";
 
 export function ShowIngredients(){
     const route: RouteProp<any> = useRoute();
+    const navigation: any = useNavigation();
+
+    const ShowIngredients = () => {
+        for (let i = 1; i < 20; i++){
+            let newString:string = "route.params?.item.strIngredient"+ i;
+            console.log(newString)
+            return (
+            route.params?.item.strIngredient + i != null ? 
+            <Text>{route.params?.item.strIngredient+i} - {route.params?.item.strMeasure+i}</Text>
+            :<Text></Text>
+            );
+        }
+    }
 
     return(
         <ScrollView>
+            <Header goBack={navigation.goBack} title={"Ingredients"}></Header>
+            <View style={styles.container}>
+            {ShowIngredients()}
+            {route.params?.item.strIngredient1 != null ? 
+            <Text>{route.params?.item.strIngredient1} - {route.params?.item.strMeasure1}</Text>
+            :<Text></Text>}
             <Text>{route.params?.item.strIngredient1} - {route.params?.item.strMeasure1}</Text>
             <Text>{route.params?.item.strIngredient2} - {route.params?.item.strMeasure2}</Text>
             <Text>{route.params?.item.strIngredient3} - {route.params?.item.strMeasure3}</Text>
@@ -33,7 +53,18 @@ export function ShowIngredients(){
             <Text>{route.params?.item.strIngredient17} - {route.params?.item.strMeasure17}</Text>
             <Text>{route.params?.item.strIngredient18} - {route.params?.item.strMeasure18}</Text>
             <Text>{route.params?.item.strIngredient19} - {route.params?.item.strMeasure19}</Text>
-
+            </View>
         </ScrollView>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container:{
+        borderWidth:1,
+        width:"95%",
+        alignItems:"center"
+    }
+
+  });
+  
