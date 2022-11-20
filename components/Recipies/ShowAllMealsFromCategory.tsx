@@ -44,11 +44,12 @@ export function ShowAllMealsFromCategory(categorie:string) {
         <View style={{flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "stretch"}}>
         {meals && 
         meals.map((meal, index) => (
-            <View style={styles.mealContainer} key={index}>
-                <TouchableOpacity key={index} onPress={() => navigation.navigate("Meal", {meal : meal})}>
-                    <Text key={index}>{meal.strMeal}</Text>
+                <TouchableOpacity  style={styles.meal_card} key={index} onPress={() => navigation.navigate("Meal", {meal : meal})}>
+                   <Image style={styles.image} source={{uri: meal.strMealThumb}}/>
+                   <View style={styles.cardContent}>
+                    <Text style={styles.name}>{meal.strMeal}</Text>
+                    </View>
                 </TouchableOpacity>
-            </View>
         ))}
       </View>
       )
@@ -59,13 +60,52 @@ viewContainer:{
     flexDirection:"row",
     flex:1,
 },
-
-   mealContainer: {
-    backgroundColor:"rgba(127, 183, 250, 0.2)",
-      borderColor:"black",
-      borderWidth:1,
-      width:"95%",
-      height:100,
-      alignSelf: "center"
-    }
+app_header:{
+  height:105,
+  width:"100%",
+  backgroundColor:"rgba(0, 191, 255, 0.5)",
+  alignItems:"center",
+},
+title_header:{
+  fontWeight:"bold",
+  marginTop:55,
+  marginBottom:5,
+  fontSize:25,
+  color:"white",
+},
+meal_card:{
+  shadowColor: '#00000021',
+  shadowOffset: {
+    width: 0,
+    height: 6,
+  },
+  shadowOpacity: 0.37,
+  shadowRadius: 7.49,
+  elevation: 12,
+  backgroundColor:"rgba(0, 191, 255, 0.5)",
+  borderRadius:10,
+  marginVertical: 10,
+  marginHorizontal:20,
+  flexBasis: '46%',
+  padding: 10,
+  flexDirection:'row'
+},
+cardContent: {
+  marginLeft:20,
+  marginTop:10,
+},
+name:{
+  fontSize:18,
+  flex:1,
+  alignSelf:'center',
+  color:"white",
+  fontWeight:'bold'
+},
+image:{
+  width:90,
+  height:90,
+  borderRadius:45,
+  borderWidth:3,
+  borderColor:"white",
+},
   });
