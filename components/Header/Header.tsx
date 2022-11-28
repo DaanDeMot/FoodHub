@@ -5,48 +5,64 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity, 
-  Image
+  TouchableOpacity,
+  Image,
 } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-interface HeaderProps{
-goBack:any,
-title:string,
+interface HeaderProps {
+  goBack: any;
+  title: string;
 }
 
-export const Header = ({goBack, title}:HeaderProps) => {
+export const Header = ({ goBack, title }: HeaderProps) => {
   return (
     <View style={styles.app_header}>
-        <View style={styles.header_content}>
-         <Ionicons name="arrow-back-circle-sharp" size={36} color="white" style={styles.back_icon} onPress={goBack}/>
-        <Text style={styles.title_header}>{title} </Text><Text style={styles.title_header}>     </Text>
-        </View>
-        </View>
-  )
-}
+      <View style={styles.header_content}>
+        <Ionicons
+          name="arrow-back-circle-sharp"
+          size={36}
+          color="white"
+          style={styles.back_icon}
+          onPress={goBack}
+        />
+        <Text style={styles.title_header}>{title} </Text>
+      </View>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
-    app_header:{
-      height:75,
-      width:"100%",
-      backgroundColor:"rgba(0, 191, 255, 0.5)",
-      justifyContent:"flex-end",
+  app_header: {
+    height: 125,
+    width: "100%",
+    backgroundColor: "rgba(0, 191, 255, 0.5)",
+    justifyContent: "flex-end",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
     },
-    header_content:{
-        height:50,
-        flexDirection: "row", 
-        justifyContent:"space-between",
-    },
-    title_header:{
-      fontWeight:"bold",
-      marginBottom:5,
-      fontSize:25,
-      color:"white",
-    },
-    back_icon:{
-      alignSelf:"flex-start",
-    },
-    
-
-  });
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+  },
   
+  header_content: {
+    height: 70,
+    flexDirection: "row",
+
+  },
+  title_header: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "white",
+    height:100,
+    textAlign:"center",
+    width:"80%",
+    paddingBottom:"5%",
+  },
+  back_icon: {
+    alignSelf: "flex-start",
+    paddingLeft: 10,
+  },
+});

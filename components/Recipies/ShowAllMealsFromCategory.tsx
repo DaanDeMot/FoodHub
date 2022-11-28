@@ -6,51 +6,42 @@ import {
   Text,
   ScrollView,
   TouchableOpacity, 
-  Image
+  Image,
+  FlatList
 } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { mealDataProps } from "../../Screens/Recipes/MealLandingScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SingleRecipeButton } from "./SingleRecipeButton";
 
-
-
-interface MealProps {
-    idMeal: string;
-    strMeal: string;
-    strMealThumb: string;
-    strInstructions:string,
-    strArea:string;
-  }
-  
-  
 
 export function ShowAllMealsFromCategory(categorie:string) {
-    const navigation: any = useNavigation();
-    const [meals, setMeals] = useState<MealProps[]>([]);
 
+    const [meals, setMeals] = useState<mealDataProps[]>([]);
 
     const GetAllMeals = async () => {
         let url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + categorie;
         try {
           const response = await fetch(url);
           const json = await response.json();
-          setMeals(json.meals)
+          setMeals(json.meals);
         } catch (error) {
           console.error(error);
         }
       };
+
+
       useEffect(() => {
         GetAllMeals();
       }, []);
 
+
       return(
         <View style={{flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "stretch"}}>
-        {meals && 
-        meals.map((meal, index) => (
-                <TouchableOpacity  style={styles.meal_card} key={index} onPress={() => navigation.navigate("Meal", {meal : meal})}>
-                   <Image style={styles.image} source={{uri: meal.strMealThumb}}/>
-                   <View style={styles.cardContent}>
-                    <Text style={styles.name}>{meal.strMeal}</Text>
-                    </View>
-                </TouchableOpacity>
-        ))}
+          <FlatList
+          data={meals}
+          renderItem={({item}) => <SingleRecipeButton meal={item}></SingleRecipeButton>}
+          ></FlatList>
       </View>
       )
 }
@@ -93,13 +84,14 @@ meal_card:{
 cardContent: {
   marginLeft:20,
   marginTop:10,
+  alignItems:"flex-start",
+  width:"70%",
 },
 name:{
   fontSize:18,
-  flex:1,
-  alignSelf:'center',
+  alignSelf:'flex-start',
   color:"white",
-  fontWeight:'bold'
+  fontWeight:'bold',
 },
 image:{
   width:90,
@@ -107,5 +99,8 @@ image:{
   borderRadius:45,
   borderWidth:3,
   borderColor:"white",
+},
+favo_icon:{
+  alignSelf:'flex-end',
 },
   });
