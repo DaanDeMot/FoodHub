@@ -10,8 +10,10 @@ import {
   Button,
 } from "react-native";
 import { Header } from "../../components/Header/Header";
+import { AntDesign } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface mealDataProps {
+export interface mealDataProps {
   idMeal: string;
   strMeal: string;
   strCategory: string;
@@ -64,13 +66,18 @@ interface mealDataProps {
   strImageSource?: null;
   strCreativeCommonsConfirmed?: null;
   dateModified?: null;
+  favoriteIconColor?:string,
 }
 
 export function MealDetailScreen() {
+
   const [mealData, setMealData] = useState<mealDataProps[]>([]);
+  const [favoColor, setFavoColor] = useState("white");
 
   const navigation: any = useNavigation();
   const route: RouteProp<any> = useRoute();
+
+
   let mealId = route.params?.meal.idMeal;
 
   const GetAllMeals = async () => {
@@ -83,6 +90,30 @@ export function MealDetailScreen() {
       console.error(error);
     }
   };
+
+  const ToggleMealFavorite = async (meal : mealDataProps) => {
+    if( await AsyncStorage.getItem(meal.strMeal) == null){
+      await AsyncStorage.setItem( meal.strMeal, JSON.stringify(meal), 
+      () =>  setFavoColor('yellow'));
+    }
+    else{
+      await AsyncStorage.removeItem( meal.strMeal, 
+      ()=> (
+        setFavoColor('white')
+      ));
+    }
+  }
+
+  const SetColorFavoriteIcon = async(meal : mealDataProps) => {
+    var MealAlreadySavedInLocalStorage = await AsyncStorage.getItem(meal.strMeal); 
+    if( MealAlreadySavedInLocalStorage == null){
+          setFavoColor('white');
+    } else{
+          setFavoColor('yellow');
+    }
+  }
+
+
   useEffect(() => {
     GetAllMeals();
   }, []);
@@ -91,6 +122,7 @@ export function MealDetailScreen() {
     <View>
       {mealData &&
         mealData.map((item, index) => (
+          SetColorFavoriteIcon(item),
           <ScrollView key={index}>
             <Header goBack={navigation.goBack} title={item.strMeal}></Header>
               <View style={styles.meal_header}>
@@ -101,6 +133,9 @@ export function MealDetailScreen() {
                     uri: item.strMealThumb,
                   }}
                 />
+
+                <AntDesign style={styles.meal_favo} name="staro" size={30} color={favoColor} onPress={() => ( ToggleMealFavorite(item))} />
+
                 <Text style={styles.meal_category}>{item.strCategory}</Text>
               </View>
 
@@ -128,6 +163,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 15,
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 1,
+},
+shadowOpacity: 0.18,
+shadowRadius: 1.00,
+
+elevation: 1,
   },
   meal_content:{
     width:"90%",
@@ -149,6 +193,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
     alignSelf: "flex-end",
+  },
+  meal_favo:{
+    position:"absolute",
+    bottom:65,
+    right:15,
   },
   image: {
     width: 130,
