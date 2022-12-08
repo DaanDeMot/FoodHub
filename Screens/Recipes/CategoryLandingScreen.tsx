@@ -13,6 +13,7 @@ import { ShowAllMealsFromCategory } from "../../components/Recipies/ShowAllMeals
 import { Header } from "../../components/Header/Header";
 import { Entypo } from '@expo/vector-icons'; 
 import { ModalPopUp } from "../../components/ModalPopUp/ModalPopUp";
+import { SupriseMeal } from "../../components/Recipies/SupriseMeal";
 
 
 
@@ -50,7 +51,10 @@ export function CategoryLandingScreen(){
         <ScrollView>
            {ShowAllMealsFromCategory(route.params?.recipe.strCategory)}
         </ScrollView>
-     
+        
+       
+        
+        
       </View>
     )
   }

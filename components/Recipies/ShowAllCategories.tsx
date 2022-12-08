@@ -9,6 +9,7 @@ import {
   FlatList, 
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { SupriseMeal } from "./SupriseMeal";
 
 interface CategoriesProps {
   idCategory: string;
@@ -38,13 +39,14 @@ export function ShowAllCategories() {
   }, []);
 
   return (
+    <>
     <View style={styles.app_container}>
       <View style={styles.app_header}>
         <Text style={styles.title_subheader}>Recipes Categories : {categories.length} </Text>
       </View>
        <FlatList
           contentContainerStyle={styles.category_container}
-            data={categories}
+            data={categories} 
             renderItem={({item, index}) => 
               <TouchableOpacity style={styles.categorie}
               key={index}
@@ -54,7 +56,15 @@ export function ShowAllCategories() {
             numColumns={2}
             key={2}
        />
+  
     </View>
+
+    <View>
+        <SupriseMeal></SupriseMeal>
+    </View>
+    
+    </>
+    
   );
 }
 
