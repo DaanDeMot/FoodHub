@@ -4,13 +4,10 @@ import { mealDataProps } from "../../Screens/Recipes/MealLandingScreen";
 import { SingleRecipeButton } from "./SingleRecipeButton";
 
 
-interface SingleRecipteButtonProps 
-{
-  meal:mealDataProps
-}
+
 export function SupriseMeal()
 {
-    const [RandomMeal,setRandomMeal] = useState<SingleRecipteButtonProps[]>([])
+    const [RandomMeal,setRandomMeal] = useState<mealDataProps[]>([])
 
     const GetRandomMeal = async() => 
     {
@@ -46,9 +43,13 @@ export function SupriseMeal()
 
        <View>
 
-
+      {RandomMeal && RandomMeal.map((item,index)=>
+        (
           
-        {RandomMeal[0].meal.strMealThumb}
+          <SingleRecipeButton meal={item}></SingleRecipeButton>
+        ))}
+          
+        
            
         </View>
                
