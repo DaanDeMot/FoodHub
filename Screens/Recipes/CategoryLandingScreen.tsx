@@ -47,9 +47,9 @@ export function CategoryLandingScreen(){
       message={route.params?.recipe.strCategoryDescription} 
       toggleModal={toggleModal}></ModalPopUp> 
               
-        <ScrollView>
+        <View>
            {ShowAllMealsFromCategory(route.params?.recipe.strCategory)}
-        </ScrollView>
+        </View>
      
       </View>
     )

@@ -22,6 +22,7 @@ export const SingleRecipeButton = ({meal}: SingleRecipteButtonProps) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   viewContainer: {
     flexDirection: "row",

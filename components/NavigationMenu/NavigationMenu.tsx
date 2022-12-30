@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeScreen } from "../../Screens/Home/HomeScreen";
+import { GalleryScreen } from "../../Screens/Gallery/GalleryScreen";
 import { FavoriteScreen } from "../../Screens/Favorites/FavoriteScreen";
 import { RecipeNavigation } from "./RecipeNavigation";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -13,11 +13,11 @@ export const NavigationMenu = () => {
     return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen}   options={{
+        <Tab.Screen name="Gallery" component={GalleryScreen}   options={{
           headerShown: false,
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Gallery',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" size={30} color="rgba(0, 191, 255, 0.5)" />
+            <MaterialCommunityIcons name="camera" size={30} color="rgba(0, 191, 255, 0.5)" />
             )}
           } />
         <Tab.Screen name="Favorites" component={FavoriteScreen} options={{

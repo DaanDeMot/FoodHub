@@ -12,6 +12,9 @@ import { ShowIngredients } from "../Recipies/ShowIngredients";
 import { RecipeLandingScreen } from "../../Screens/Recipes/RecipeScreen";
 import { CategoryLandingScreen } from "../../Screens/Recipes/CategoryLandingScreen";
 import { MealDetailScreen } from "../../Screens/Recipes/MealLandingScreen";
+import { CameraScreen } from "../../Screens/CameraScreen/CameraScreen";
+import { NavigationMenu } from "./NavigationMenu";
+import { PictureScreen } from "../../Screens/PictureScreen/PictureScreen";
 
 export function RecipeNavigation(){
   
@@ -36,12 +39,23 @@ const Stack = createNativeStackNavigator();
         component={MealDetailScreen}
         options={{ headerShown: false }}
       />
-
-<Stack.Screen
+    <Stack.Screen
         name="Ingredients"
         component={ShowIngredients}
         options={{ headerShown: false }}
       />
+
+     <Stack.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{ headerShown: false }}
+      /> 
+
+<Stack.Screen
+        name="Picture"
+        component={PictureScreen}
+        options={{ headerShown: false }}
+      /> 
     </Stack.Navigator>
   )
 }
