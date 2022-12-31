@@ -37,12 +37,10 @@ export function ShowAllMealsFromCategory(categorie:string) {
 
 
       return(
-        <View style={{flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "stretch"}}>
           <FlatList
           data={meals}
           renderItem={({item}) => <SingleRecipeButton meal={item}></SingleRecipeButton>}
           ></FlatList>
-      </View>
       )
 }
 
@@ -50,6 +48,8 @@ const styles = StyleSheet.create({
 viewContainer:{
     flexDirection:"row",
     flex:1,
+    borderWidth:1,
+    width:"100%",
 },
 app_header:{
   height:105,

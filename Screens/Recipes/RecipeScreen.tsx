@@ -20,7 +20,6 @@ export function RecipeLandingScreen() {
         <Text style={styles.title_header}>Discover recipes </Text>
         </View>
       <ShowAllCategories></ShowAllCategories>
-      
     </View>
   )
 
