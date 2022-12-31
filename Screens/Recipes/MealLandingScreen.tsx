@@ -93,12 +93,12 @@ export function MealDetailScreen() {
   };
 
   const ToggleMealFavorite = async (meal : mealDataProps) => {
-    if( await AsyncStorage.getItem(meal.strMeal) == null){
-      await AsyncStorage.setItem( meal.strMeal, JSON.stringify(meal), 
+    if( await AsyncStorage.getItem("@Recipe_"+meal.strMeal) == null){
+      await AsyncStorage.setItem( "@Recipe_"+ meal.strMeal, JSON.stringify(meal), 
       () =>  setFavoColor('yellow'));
     }
     else{
-      await AsyncStorage.removeItem( meal.strMeal, 
+      await AsyncStorage.removeItem("@Recipe_"+ meal.strMeal, 
       ()=> (
         setFavoColor('white')
       ));
@@ -106,7 +106,7 @@ export function MealDetailScreen() {
   }
 
   const SetColorFavoriteIcon = async(meal : mealDataProps) => {
-    var MealAlreadySavedInLocalStorage = await AsyncStorage.getItem(meal.strMeal); 
+    var MealAlreadySavedInLocalStorage = await AsyncStorage.getItem("@Recipe_"+meal.strMeal); 
     if( MealAlreadySavedInLocalStorage == null){
           setFavoColor('white');
     } else{

@@ -6,6 +6,7 @@ import { FavoriteScreen } from "../../Screens/Favorites/FavoriteScreen";
 import { RecipeNavigation } from "./RecipeNavigation";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
+import { GalleryNavigation } from "./GalleryNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,14 @@ export const NavigationMenu = () => {
     return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Gallery" component={GalleryScreen}   options={{
+      <Tab.Screen name="Recipes" component={RecipeNavigation}  options={{
+          headerShown: false,
+          tabBarLabel: 'Recipes',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="food" size={30} color="rgba(0, 191, 255, 0.5)" />
+            )}
+          }  />
+        <Tab.Screen name="Gallery" component={GalleryNavigation}   options={{
           headerShown: false,
           tabBarLabel: 'Gallery',
           tabBarIcon: ({ color, size }) => (
@@ -27,13 +35,7 @@ export const NavigationMenu = () => {
             <AntDesign name="star" size={30} color="rgba(0, 191, 255, 0.5)"  />
             )}
           }   />
-        <Tab.Screen name="Recipes" component={RecipeNavigation}  options={{
-          headerShown: false,
-          tabBarLabel: 'Recipes',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="food" size={30} color="rgba(0, 191, 255, 0.5)" />
-            )}
-          }  />
+       
       </Tab.Navigator>
     </NavigationContainer>
   );

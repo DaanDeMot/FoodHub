@@ -22,17 +22,22 @@ export function FavoriteScreen() {
   const GetFavorites = async() => {
     try{
       const keys = await AsyncStorage.getAllKeys();
-      const result = await AsyncStorage.multiGet(keys);
-
+      console.log('keys');
+      console.log(keys);
+      const mealKeys = keys.filter((key, i) => {
+        if (key.includes("@Recipe_")) {
+          return key;
+        }
+      });
+      const result = await AsyncStorage.multiGet(mealKeys);
         setFavorites(result.map((favo, index) => {
         return JSON.parse(favo[1]!) as mealDataProps
       }));
-      setMealKeys(keys);
-      setLoading(false);
+      setMealKeys(mealKeys);
        }catch(error){
       console.log(error);
     }
-  
+    setLoading(false);
   }
 
   const clearAll = async () => {
@@ -46,20 +51,21 @@ export function FavoriteScreen() {
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log('---------FavoriteScreen----.')
       GetFavorites();
-      console.log(favorites);
     } , [])
   )
 
     return (
         <View>
           <Header goBack={navigation.goBack}  title={favorites.length+ " Favorites."}></Header>
-          {loading ?
-          <Text> Loading</Text> :
-          <ScrollView>
-            <TouchableOpacity onPress={clearAll}>
+          <TouchableOpacity onPress={clearAll}>
               <Text>Clear Favorites </Text>
             </TouchableOpacity> 
+          {loading?
+          <Text> Loading</Text> :
+          <ScrollView>
+     
             {favorites.map((favo, index) =>(
               <SingleRecipeButton key={index} meal={favo}></SingleRecipeButton>
             ) )}
