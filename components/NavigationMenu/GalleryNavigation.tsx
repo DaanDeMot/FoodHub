@@ -15,43 +15,26 @@ import { MealDetailScreen } from "../../Screens/Recipes/MealLandingScreen";
 import { CameraScreen } from "../../Screens/CameraScreen/CameraScreen";
 import { NavigationMenu } from "./NavigationMenu";
 import { PictureScreen } from "../../Screens/PictureScreen/PictureScreen";
+import { GalleryScreen } from "../../Screens/Gallery/GalleryScreen";
 
-export function RecipeNavigation(){
+export function GalleryNavigation(){
   
 const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Discover"
-        component={RecipeLandingScreen}
-        options={{ headerShown: false}}
-        
-      />
-      <Stack.Screen
-        name="Categorie"
-        component={CategoryLandingScreen}
+       <Stack.Screen
+        name="Gallery"
+        component={GalleryScreen}
         options={{ headerShown: false }}
-        
-      />
-      <Stack.Screen
-        name="Meal"
-        component={MealDetailScreen}
-        options={{ headerShown: false }}
-      />
-    <Stack.Screen
-        name="Ingredients"
-        component={ShowIngredients}
-        options={{ headerShown: false }}
-      />
-
+      /> 
      <Stack.Screen
         name="Camera"
         component={CameraScreen}
         options={{ headerShown: false }}
       /> 
 
-    <Stack.Screen
+<Stack.Screen
         name="Picture"
         component={PictureScreen}
         options={{ headerShown: false }}

@@ -22,50 +22,56 @@ export function FavoriteScreen() {
   const GetFavorites = async() => {
     try{
       const keys = await AsyncStorage.getAllKeys();
-      const result = await AsyncStorage.multiGet(keys);
-
-      setFavorites(result.map((ktp, index) => {
-        return JSON.parse(ktp[1]!) as mealDataProps
+      console.log('keys');
+      console.log(keys);
+      const mealKeys = keys.filter((key, i) => {
+        if (key.includes("@Recipe_")) {
+          return key;
+        }
+      });
+      const result = await AsyncStorage.multiGet(mealKeys);
+        setFavorites(result.map((favo, index) => {
+        return JSON.parse(favo[1]!) as mealDataProps
       }));
-      setMealKeys(keys);
-      setLoading(false);
-      
-    }catch(error){
+      setMealKeys(mealKeys);
+       }catch(error){
       console.log(error);
     }
-  
+    setLoading(false);
+  }
+
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch(e) {
+    console.log(e)
+    }
+    console.log('Done.')
   }
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("test");
+      console.log('---------FavoriteScreen----.')
       GetFavorites();
     } , [])
   )
 
     return (
         <View>
-          <Header goBack={navigation.goBack}  title={"Favorites"}></Header>
-          {loading ?
+          <Header goBack={navigation.goBack}  title={favorites.length+ " Favorites."}></Header>
+          <TouchableOpacity onPress={clearAll}>
+              <Text>Clear Favorites </Text>
+            </TouchableOpacity> 
+          {loading?
           <Text> Loading</Text> :
           <ScrollView>
-            <TouchableOpacity>
-              <Text>Aantal Favorites: {favorites.length} </Text>
-            </TouchableOpacity> 
-            {mealKeys.map((meal, index) => (
-              <Text key={index}>{meal}</Text>
-            ))}
-
+     
             {favorites.map((favo, index) =>(
-              <Text key={index}>{favo.strArea}</Text>
+              <SingleRecipeButton key={index} meal={favo}></SingleRecipeButton>
             ) )}
 
           </ScrollView>
-          }
-          
-
-          
-         
+          }         
         </View>
       );
 }

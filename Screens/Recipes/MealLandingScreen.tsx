@@ -12,6 +12,7 @@ import {
 import { Header } from "../../components/Header/Header";
 import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Entypo } from '@expo/vector-icons';
 
 export interface mealDataProps {
   idMeal: string;
@@ -92,12 +93,12 @@ export function MealDetailScreen() {
   };
 
   const ToggleMealFavorite = async (meal : mealDataProps) => {
-    if( await AsyncStorage.getItem(meal.strMeal) == null){
-      await AsyncStorage.setItem( meal.strMeal, JSON.stringify(meal), 
+    if( await AsyncStorage.getItem("@Recipe_"+meal.strMeal) == null){
+      await AsyncStorage.setItem( "@Recipe_"+ meal.strMeal, JSON.stringify(meal), 
       () =>  setFavoColor('yellow'));
     }
     else{
-      await AsyncStorage.removeItem( meal.strMeal, 
+      await AsyncStorage.removeItem("@Recipe_"+ meal.strMeal, 
       ()=> (
         setFavoColor('white')
       ));
@@ -105,7 +106,7 @@ export function MealDetailScreen() {
   }
 
   const SetColorFavoriteIcon = async(meal : mealDataProps) => {
-    var MealAlreadySavedInLocalStorage = await AsyncStorage.getItem(meal.strMeal); 
+    var MealAlreadySavedInLocalStorage = await AsyncStorage.getItem("@Recipe_"+meal.strMeal); 
     if( MealAlreadySavedInLocalStorage == null){
           setFavoColor('white');
     } else{
@@ -149,11 +150,20 @@ export function MealDetailScreen() {
               <Text style={styles.meal_instructions}>Instructions</Text>
               <Text>{item.strInstructions}</Text>
             </View>
+            <Entypo 
+              style={styles.meal_picture} 
+              name="camera" size={50} 
+              color="rgba(0, 191, 255, 1)"
+              onPress={() => {
+              navigation.navigate("Camera", {title : item.strMeal});
+              }} />
           </ScrollView>
         ))}
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   meal_header: {
@@ -227,5 +237,10 @@ elevation: 1,
     alignSelf: "center",
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  meal_picture:{
+    textAlign:"center",
+    marginTop:'3%',
+    marginBottom:"5%"
   },
 });
